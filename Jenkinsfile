@@ -3,6 +3,18 @@ pipeline {
 		label 'docker'
 	}
 	stages {
+		stage('Docker node test') {
+			agent {
+				docker {
+					label 'docker'
+					image 'node:lts-buster-slim'
+					args '-p 4000:4000'
+				}
+			}
+			steps {
+				sh 'node --version'
+			}
+		}
 		stage('Build') { 
 			steps {
 				sh 'npm install' 
@@ -19,18 +31,6 @@ pipeline {
 				sh './jenkins/scripts/deliver.sh'
 				input message: 'Finished using the web site? (Click "Proceed" to continue)'
 				sh './jenkins/scripts/kill.sh'
-			}
-		}
-		stage('Docker node test') {
-			agent {
-				docker {
-					label 'docker'
-					image 'node:lts-buster-slim'
-					args '-p 4000:4000'
-				}
-			}
-			steps {
-				sh 'node --version'
 			}
 		}
 	}

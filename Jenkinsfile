@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage('Pull & build dcker images') {
 			steps {
-				sh './pull_n_build.sh'
+				sh './pull_n_build_docker_images.sh'
 			}
 		}
 		stage('Build') { 

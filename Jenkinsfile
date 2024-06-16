@@ -21,7 +21,7 @@ pipeline {
 		stage('Pull & build dcker images') {
 			steps {
 				script {
-					docker.build('postgres:latest', '.')
+					sh 'docker build -t mypostgres ./docker/postgres/'
 				}
 			}
 		}

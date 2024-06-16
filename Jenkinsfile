@@ -1,13 +1,5 @@
 pipeline {
-	agent {
-		docker {
-			image 'node:lts-buster-slim'
-			args '-p 3000:3000'
-		}
-	}
-	environment {
-		CI = 'true'
-	}
+	agent any
 	stages {
 		stage('Build') { 
 			steps {
@@ -24,13 +16,6 @@ pipeline {
 				sh './jenkins/scripts/deliver.sh'
 				input message: 'Finished using the web site? (Click "Proceed" to continue)'
 				sh './jenkins/scripts/kill.sh'
-			}
-		}
-		stage('Pull & build dcker images') {
-			steps {
-				script {
-					sh 'docker build -t mypostgres ./docker/postgres/'
-				}
 			}
 		}
 	}

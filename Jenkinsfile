@@ -1,6 +1,11 @@
 pipeline {
 	agent any
 	stages {
+		stage('Pull & build dcker images') {
+			steps {
+				sh './pull_n_build.sh'
+			}
+		}
 		stage('Build') { 
 			steps {
 				sh 'npm install' 

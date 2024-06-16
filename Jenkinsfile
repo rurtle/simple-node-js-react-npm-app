@@ -1,11 +1,6 @@
 pipeline {
 	agent any
 	stages {
-		stage('Pull & build dcker images') {
-			steps {
-				sh './pull_n_build_docker_images.sh'
-			}
-		}
 		stage('Build') { 
 			steps {
 				sh 'npm install' 
@@ -21,6 +16,13 @@ pipeline {
 				sh './jenkins/scripts/deliver.sh'
 				input message: 'Finished using the web site? (Click "Proceed" to continue)'
 				sh './jenkins/scripts/kill.sh'
+			}
+		}
+		stage('Pull & build dcker images') {
+			steps {
+				script {
+					docker.build('postgres:latest', '.')
+				}
 			}
 		}
 	}

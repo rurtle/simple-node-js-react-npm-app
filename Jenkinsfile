@@ -31,7 +31,6 @@ pipeline {
 				sh 'gradle --version'
 			}
 		}
-*/
 		stage('Pull Postgres Image')
 		{
 			steps {
@@ -40,5 +39,44 @@ pipeline {
 				}
 			}
         	}
+*/
+		stage('Pull Postgres Image') {
+			steps {
+				script {
+					docker.image('postgres:latest').pull()
+				}
+			}
+		}
+		stage('Pull Redis Image') {
+			steps {
+				script {
+					docker.image('redis:latest').pull()
+				}
+			}
+		}
+		stage('Pull Mongo Express Image') {
+			steps {
+				script {
+					docker.image('mongo-express:latest').pull()
+				}
+			}
+		}
+		stage('Pull Mongo DB Image') {
+			steps {
+				script {
+					docker.image('mongo:latest').pull()
+				}
+			}
+		}
+		stage('Build Docker Containers Locally') {
+			steps {
+				script {
+					docker.build('my-postgres-image', 'postgres:latest')
+					docker.build('my-redis-image', 'redis:latest')
+					docker.build('my-mongo-express-image', 'mongo-express:latest')
+					docker.build('my-mongo-db-image', 'mongo:latest')
+				}
+			}
+		}
 	}
 }

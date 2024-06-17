@@ -19,6 +19,7 @@ pipeline {
 				sh './jenkins/scripts/kill.sh'
 			}
 		}
+/*
 		stage('Build PostGreSQL') {
 			agent {
 				docker {
@@ -30,5 +31,14 @@ pipeline {
 				sh 'gradle --version'
 			}
 		}
+*/
+		stage('Pull Postgres Image')
+		{
+			steps {
+				script {
+					docker.image('postgres:latest').pull()
+				}
+			}
+        	}
 	}
 }

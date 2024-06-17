@@ -1,0 +1,4 @@
+FROM mongo-express:latest
+WORKDIR .
+COPY . .
+EXPOSE 8081

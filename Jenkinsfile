@@ -19,32 +19,6 @@ pipeline {
 				sh './jenkins/scripts/kill.sh'
 			}
 		}
-/*
-		stage('Build PostGreSQL') {
-			agent {
-				docker {
-					image	'gradle:8.2.0-jdk17-alpine'
-					reuseNode true
-				}
-			}
-			steps {
-				sh 'gradle --version'
-			}
-		}
-		stage('Build PostgreSQL') {
-			agent {
-				docker {
-					image 'postgres:latest'
-					reuseNode true
-				}
-			}
-			steps {
-				sh 'cp postgres_Dockerfile Dockerfile'
-				sh 'docker build -t mypostgres .'
-				sh 'rm -f Dockerfile'
-			}
-		}
-*/
 		stage('Pull Postgres Image')
 		{
 			steps {
@@ -55,45 +29,35 @@ pipeline {
 				}
 			}
         	}
-/*
-		stage('Pull Postgres Image') {
-			steps {
-				script {
-					docker.image('postgres:latest').pull()
-				}
-			}
-		}
-		stage('Pull Redis Image') {
+		stage('Pull redis Image')
+		{
 			steps {
 				script {
 					docker.image('redis:latest').pull()
+					sh 'mkdir -p ./redis && cp redis_Dockerfile ./redis/Dockerfile'
+					docker.build('my-redis-image', './redis/')
 				}
 			}
-		}
-		stage('Pull Mongo Express Image') {
-			steps {
-				script {
-					docker.image('mongo-express:latest').pull()
-				}
-			}
-		}
-		stage('Pull Mongo DB Image') {
+        	}
+		stage('Pull mongo Image')
+		{
 			steps {
 				script {
 					docker.image('mongo:latest').pull()
+					sh 'mkdir -p ./mongo && cp mongo_Dockerfile ./mongo/Dockerfile'
+					docker.build('my-mongo-image', './mongo/')
 				}
 			}
-		}
-		stage('Build Docker Containers Locally') {
+        	}
+		stage('Pull mongo-express Image')
+		{
 			steps {
 				script {
-					docker.build('my-postgres-image', 'postgres:latest')
-					docker.build('my-redis-image', 'redis:latest')
-					docker.build('my-mongo-express-image', 'mongo-express:latest')
-					docker.build('my-mongo-db-image', 'mongo:latest')
+					docker.image('mongo-express:latest').pull()
+					sh 'mkdir -p ./mongo-express && cp mongo-express_Dockerfile ./mongo-express/Dockerfile'
+					docker.build('my-mongo-express-image', './mongo-express/')
 				}
 			}
-		}
-*/
+        	}
 	}
 }

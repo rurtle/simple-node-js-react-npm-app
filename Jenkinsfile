@@ -23,7 +23,7 @@ pipeline {
 		{
 			steps {
 				script {
-					docker.image('postgres:latest').pull()
+					// docker.image('postgres:latest').pull()
 					sh 'mkdir -p ./postgres && cp postgres_Dockerfile ./postgres/Dockerfile'
 					docker.build('my-postgres-image', './postgres/')
 				}
@@ -33,7 +33,7 @@ pipeline {
 		{
 			steps {
 				script {
-					docker.image('redis:latest').pull()
+					// docker.image('redis:latest').pull()
 					sh 'mkdir -p ./redis && cp redis_Dockerfile ./redis/Dockerfile'
 					docker.build('my-redis-image', './redis/')
 				}
@@ -43,7 +43,7 @@ pipeline {
 		{
 			steps {
 				script {
-					docker.image('mongo:latest').pull()
+					// docker.image('mongo:latest').pull()
 					sh 'mkdir -p ./mongo && cp mongo_Dockerfile ./mongo/Dockerfile'
 					docker.build('my-mongo-image', './mongo/')
 				}
@@ -53,7 +53,7 @@ pipeline {
 		{
 			steps {
 				script {
-					docker.image('mongo-express:latest').pull()
+					// docker.image('mongo-express:latest').pull()
 					sh 'mkdir -p ./mongo-express && cp mongo-express_Dockerfile ./mongo-express/Dockerfile'
 					docker.build('my-mongo-express-image', './mongo-express/')
 				}

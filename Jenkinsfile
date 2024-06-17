@@ -19,5 +19,16 @@ pipeline {
 				sh './jenkins/scripts/kill.sh'
 			}
 		}
+		stage('Build PostGreSQL') {
+			agent {
+				docker {
+					image	'gradle:8.2.0-jdk17-alpine'
+					reuseNode true
+				}
+			}
+			steps {
+				sh 'gradle --version'
+			}
+		}
 	}
 }

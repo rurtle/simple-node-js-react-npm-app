@@ -93,11 +93,15 @@ pipeline {
 				}
 			}
 		}
-	}
-	post
-	{
-		always {
-			cleanWs()		// Clean workspace
+		stage('Connecting mongo-express frontent with mongo')
+		{
+			steps {
+				script {
+					sh 'docker network rm -f mongo-network'
+					sh 'docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=ati -e MONGO_INITDB_ROOT_PASSWORD=ati13579 --name my-mongo-image --net mongo-network mongo'
+					sh 'docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=ati -e ME_CONFIG_MONGODB_ADMINPASSWORD=ati13579 --name my-mongo-express-image --net mongo-network mongo-express'
+				}
+			}
 		}
 	}
 }

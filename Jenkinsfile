@@ -31,15 +31,6 @@ pipeline {
 				sh 'gradle --version'
 			}
 		}
-		stage('Pull Postgres Image')
-		{
-			steps {
-				script {
-					docker.image('postgres:latest').pull()
-				}
-			}
-        	}
-*/
 		stage('Build PostgreSQL') {
 			agent {
 				docker {
@@ -53,6 +44,17 @@ pipeline {
 				sh 'rm -f Dockerfile'
 			}
 		}
+*/
+		stage('Pull Postgres Image')
+		{
+			steps {
+				script {
+					docker.image('postgres:latest').pull()
+					sh 'mkdir -p ./postgres && cp postgres_Dockerfile ./postgres/Dockerfile'
+					docker.build('my-postgres-image', './postgres/')
+				}
+			}
+        	}
 /*
 		stage('Pull Postgres Image') {
 			steps {

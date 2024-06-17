@@ -19,7 +19,7 @@ pipeline {
 				sh './jenkins/scripts/kill.sh'
 			}
 		}
-		stage('Pull Postgres Image')
+		stage('Pull & build postgres docker image')
 		{
 			steps {
 				script {
@@ -29,7 +29,7 @@ pipeline {
 				}
 			}
         	}
-		stage('Pull redis Image')
+		stage('Pull & build redis docker image')
 		{
 			steps {
 				script {
@@ -39,7 +39,7 @@ pipeline {
 				}
 			}
         	}
-		stage('Pull mongo Image')
+		stage('Pull & build mongo docker image')
 		{
 			steps {
 				script {
@@ -49,7 +49,7 @@ pipeline {
 				}
 			}
         	}
-		stage('Pull mongo-express Image')
+		stage('Pull & build mongo-express docker image')
 		{
 			steps {
 				script {
@@ -59,7 +59,7 @@ pipeline {
 				}
 			}
         	}
-		stage('Create local Docker registry')
+		stage('Create local docker registry')
 		{
 			steps {
 				script {
@@ -67,7 +67,7 @@ pipeline {
 				}
 			}
 		}
-		stage('Pushing images to my-local-registry')
+		stage('Pushing built container images to my-local-registry')
 		{
 			steps {
 				script {

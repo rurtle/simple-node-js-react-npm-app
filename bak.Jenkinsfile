@@ -1,5 +1,20 @@
 pipeline {
+	agent {
+		label 'docker'
+	}
 	stages {
+		stage('Docker node test') {
+			agent {
+				docker {
+					label 'docker'
+					image 'node:18-buster-slim'
+					args '-p 4000:4000'
+				}
+			}
+			steps {
+				sh 'node --version'
+			}
+		}
 		stage('Build') { 
 			steps {
 				sh 'npm install' 

@@ -71,10 +71,25 @@ pipeline {
 		{
 			steps {
 				script {
-					sh 'echo "Pushing PostgreSQL image to local registry"'
+					sh 'echo "Pushing postgres image to local registry"'
 					sh 'docker tag my-postgres-image localhost:5000/my-postgres-image'
 					sh 'docker push localhost:5000/my-postgres-image'
-					sh 'echo "PostgreSQL Docker image pushed to my-local-registry"'
+					sh 'echo "postgres Docker image pushed to my-local-registry"'
+
+					sh 'echo "Pushing redis image to local registry"'
+					sh 'docker tag my-redis-image localhost:5000/my-redis-image'
+					sh 'docker push localhost:5000/my-redis-image'
+					sh 'echo "redis Docker image pushed to my-local-registry"'
+
+					sh 'echo "Pushing mongo image to local registry"'
+					sh 'docker tag my-mongo-image localhost:5000/my-mongo-image'
+					sh 'docker push localhost:5000/my-mongo-image'
+					sh 'echo "mongo Docker image pushed to my-local-registry"'
+
+					sh 'echo "Pushing mongo-express image to local registry"'
+					sh 'docker tag my-mongo-express-image localhost:5000/my-mongo-express-image'
+					sh 'docker push localhost:5000/my-mongo-express-image'
+					sh 'echo "mongo-express Docker image pushed to my-local-registry"'
 				}
 			}
 		}

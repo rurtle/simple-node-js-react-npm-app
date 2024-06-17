@@ -100,7 +100,7 @@ pipeline {
 					sh 'docker network rm -f mongo-network'
 					sh 'docker network create mongo-network'
 					sh 'docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=ati -e MONGO_INITDB_ROOT_PASSWORD=ati13579 --name my-mongo-image --net mongo-network my-mongo-image'
-					sh 'docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=ati -e ME_CONFIG_MONGODB_ADMINPASSWORD=ati13579 --name my-mongo-express-image --net mongo-network my-mongo-express-image'
+					sh 'docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=ati -e ME_CONFIG_MONGODB_ADMINPASSWORD=ati13579 -e ME_CONFIG_MONGODB_SERVER=my-mongo-image --name my-mongo-express-image --net mongo-network my-mongo-express-image'
 				}
 			}
 		}

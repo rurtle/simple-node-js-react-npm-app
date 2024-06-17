@@ -59,5 +59,24 @@ pipeline {
 				}
 			}
         	}
+		stage('Create local Docker registry')
+		{
+			steps {
+				script {
+					sh 'docker run -d -p 5000:5000 --name my-local-registry --restart=always registry:2'
+				}
+			}
+		}
+		stage('Pushing images to my-local-registry')
+		{
+			steps {
+				script {
+					sh 'echo "Pushing PostgreSQL image to local registry"'
+					sh 'docker tag my-postgres-image localhost:5000/my-postgres-image'
+					sh 'docker push localhost:5000/my-postgres-image'
+					sh 'echo "PostgreSQL Docker image pushed to my-local-registry"'
+				}
+			}
+		}
 	}
 }

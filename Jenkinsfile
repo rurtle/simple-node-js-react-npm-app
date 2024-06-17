@@ -40,6 +40,20 @@ pipeline {
 			}
         	}
 */
+		stage('Build PostgreSQL') {
+			agent {
+				docker {
+					image 'postgres:latest'
+					reuseNode true
+				}
+			}
+			steps {
+				sh 'cp postgres_Dockerfile Dockerfile'
+				sh 'docker build -t mypostgres .'
+				sh 'rm -f Dockerfile'
+			}
+		}
+/*
 		stage('Pull Postgres Image') {
 			steps {
 				script {
@@ -78,5 +92,6 @@ pipeline {
 				}
 			}
 		}
+*/
 	}
 }
